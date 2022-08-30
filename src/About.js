@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {UserContext} from "./context/userContext";
 
-const About = () => {
-    return (
+export function About() {
+    const {user} = useContext(UserContext)
+    return(
         <div>
-            About
+            <div className={'text-4xl'}>
+                About
+            </div>
+            {user}
         </div>
-    );
-};
-
-export default About;
+    )
+}
