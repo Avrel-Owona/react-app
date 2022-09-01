@@ -1,21 +1,36 @@
 import React, {useState} from 'react';
-import {useAuthContext} from "./context/authContext";
+// import {useAuthContext} from "./context/authContext";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import {logDOM} from "@testing-library/react";
 
 export function Register() {
     const [email, setEmail] = useState()
+    const [firstName, setFirstName] = useState()
+    const [lastName, setLastName] = useState()
     const [password, setPassword] = useState()
     const [errorMessage, setErrorMessage] = useState()
-    const {register} = useAuthContext()
+    // const {register} = useAuthContext()
     const navigate = useNavigate()
 
     const handleSubmit = async  (e) => {
-        // Afin que ma page ne soit pas actualisée
         e.preventDefault()
+        const data = {
+            email : email,
+            firstName : firstName,
+            lastName : lastName,
+            password : password,
+        }
+        // Afin que ma page ne soit pas actualisée
+
         setErrorMessage('')
         try {
             // Je vais avoir une attente
-            await register(email, password)
+            await axios.post('http://localhost:8080/api/register', data)
+                .then((res)=>{
+                    console.log('res', res)
+                })
+                .catch((e)=>setErrorMessage(e.response.data.error[0].message))
             navigate('/login')
         } catch (err) {
             setErrorMessage(err.message)
@@ -33,9 +48,18 @@ export function Register() {
                         {errorMessage}
                     </div>
                 )}
+                <input type="text"
+                       onChange={(e)=> {setFirstName(e.target.value)}}
+                       className='input-form mb-8 h-10 bg-custom-grey focus:bg-custom-grey focus:ring-transparent focus:border-transparent border-gray-300 focus:border-gray-300 text-sm'
+                       placeholder={'FirstName'}/>
+                <input type="text"
+                       onChange={(e)=> {setLastName(e.target.value)}}
+                       className='input-form mb-8 h-10 bg-custom-grey focus:bg-custom-grey focus:ring-transparent focus:border-transparent border-gray-300 focus:border-gray-300 text-sm'
+                       placeholder={'LastName'}/>
                 <input type="email"
                        onChange={(e)=> {setEmail(e.target.value)}}
-                       className='input-form mb-8 h-10 bg-custom-grey focus:bg-custom-grey focus:ring-transparent focus:border-transparent border-gray-300 focus:border-gray-300 text-sm' placeholder={'Email'}/>
+                       className='input-form mb-8 h-10 bg-custom-grey focus:bg-custom-grey focus:ring-transparent focus:border-transparent border-gray-300 focus:border-gray-300 text-sm'
+                       placeholder={'Email'}/>
                 <input type="password"
                        onChange={(e)=> {setPassword(e.target.value)}}
                        className='input-form mb-8 h-10 bg-custom-grey focus:bg-custom-grey focus:ring-transparent focus:border-transparent border-gray-300 focus:border-gray-300 text-sm' placeholder={'Password'}/>

@@ -5,6 +5,9 @@ import {Link} from "react-router-dom";
 export function Products() {
     const [products, setProducts] = useState([])
 
+    // const {user}= useAuthContext()
+    // console.log('currentUser', user)
+
     const allProducts = async () => {
         const response  = await axios.get('https://fakestoreapi.com/products')
             .catch((err) => {

@@ -1,30 +1,23 @@
 import React, {useState} from 'react';
-import {useAuthContext} from "./context/authContext";
-import {useNavigate} from "react-router-dom";
+import {useAuth} from "./context/authContext";
 
 export function Login() {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [errorMessage, setErrorMessage] = useState()
-    const [isLoading, setIsLoading] = useState(false)
-    const {login, user} = useAuthContext()
-    const navigate = useNavigate()
+
+
+    const {login, user, isLoading, errorMessage} = useAuth()
 
     console.log('user', user)
 
     const handleSubmit = async  (e) => {
-        // Afin que ma page ne soit pas actualisée
+
         e.preventDefault()
-        setErrorMessage('')
-        setIsLoading(true)
-        try {
-            // Je vais avoir une attente
-            await login(email, password)
-            navigate('/products')
-        } catch (err) {
-            setErrorMessage(err.message)
+        const data = {
+            email : email,
+            password : password,
         }
-        setIsLoading(false)
+        await login(data)
     }
 
 
