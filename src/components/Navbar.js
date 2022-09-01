@@ -12,6 +12,7 @@ import {useAuthContext} from "../context/authContext";
 
 const Navbar = () => {
     const {user, logout} = useAuthContext()
+    console.log('user', user)
     const handleLogout = async  () => {
         try {
            await logout()
@@ -19,8 +20,6 @@ const Navbar = () => {
             console.log(e)
         }
     }
-
-    const authPages: string[] = ["/login", "/register"];
 
     return(
             <div>

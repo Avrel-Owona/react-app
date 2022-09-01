@@ -1,5 +1,5 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged} from 'firebase/auth'
+import {createContext, useContext, useEffect, useMemo, useState} from "react";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} from 'firebase/auth'
 import {auth} from "../firebase";
 
 const authContext = createContext()
@@ -8,30 +8,27 @@ export function AuthContextProvider ({children}) {
     const [user, setUser] = useState('')
 
     function register (email, password) {
-        //Pour creer un nouvel utilisateur, il aura besoin de notre instance d'authentification que nous aurions
-        //Creer dans le fichier firebase.js
         return createUserWithEmailAndPassword(auth, email, password)
     }
     function login (email, password) {
         return signInWithEmailAndPassword(auth, email, password)
     }
-    function logout (email, password) {
+    function logout () {
         return signOut(auth)
     }
+    function onAuthStateChanged(currentUser) {
+        localStorage.setUser(JSON.stringify(currentUser))
+        console.log('current', JSON.stringify(currentUser))
+    }
 
-    // Nous permets de savoir comment Firebase nous informe si un user est creé ou est connecté
-    // C'est notre fonction de changement d'authenfication {onAuthStateChanged}
-    // Nous voulons l'utiliser une fois que le composant est monté donc le choix est pour un useEffect
     useEffect(()=> {
-        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser)
-        })
-        return ()=> unSubscribe()
+        const subscribe = auth.onAuthStateChanged(onAuthStateChanged)
+        return ()=> subscribe()
     },[])
 
 
     return (
-        <authContext.Provider value={{user, register, login, logout}}>
+        <authContext.Provider value={useMemo(()=>({login, register, logout, user}),[user])}>
             {children}
         </authContext.Provider>
     )
