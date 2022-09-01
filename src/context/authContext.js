@@ -33,10 +33,10 @@ export function AuthContextProvider ({children}) {
                     //     user : res.data.user,
                     //     loggedIn : true
                     // })
-                    setUser(res.data.user)
-                    console.log('current', res.data.user)
                     localStorage.setItem('token', res.data.user.token)
-                    localStorage.setItem('firstName', res.data.user.firstName)
+                    for (const [key, value] of Object.entries(res.data.user)) {
+                        localStorage.setItem(key, value)
+                    }
 
                     navigate('/')
                     setIsLoading(false)

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import {ProductDetails} from "../productDetails";
 import {Login} from "../login";
 import {Register} from "../register";
@@ -10,6 +10,7 @@ import {useAuth} from "../context/authContext";
 
 const Navbar = () => {
     const {user} = useAuth()
+    const navigate = useNavigate()
 
     // const handleLogout = async  () => {
     //     try {
@@ -36,9 +37,9 @@ const Navbar = () => {
                         </ul>}
                     <button className='bg-black px-4 py-3 text-white ml-3' onClick={()=>{
                         localStorage.clear()
-                        window.location.reload()
+                        navigate('/login')
                     }}>Clear</button>
-                    <button className='border text-black px-4 py-3 text-white ml-3' onClick={''}>{localStorage.firstName}</button>
+                    <button className='border text-black px-4 py-3 text-white ml-3'>{localStorage.firstName}</button>
 
 
                 </nav>
