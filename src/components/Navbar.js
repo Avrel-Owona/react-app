@@ -22,17 +22,25 @@ const Navbar = () => {
     return(
             <div>
                 <nav className='w-full shadow-lg flex items-center justify-center h-20'>
-                    {user ?
+                    {localStorage.firstName ?
                         <ul className='flex h-full justify-center items-center'>
                             <a className='ml-3' href="/products/">Products</a>
                             <a className='ml-3' href="/">Home</a>
                             <button className='bg-black px-4 py-3 text-white ml-3' onClick={''}>Logout</button>
+
                         </ul> :
                         <ul className='flex h-full justify-center items-center'>
                             <a className='ml-3' href="/">Home</a>
                             <a className='ml-3' href="/login/">Login</a>
                             <a className='ml-3' href="/register/">Register</a>
                         </ul>}
+                    <button className='bg-black px-4 py-3 text-white ml-3' onClick={()=>{
+                        localStorage.clear()
+                        window.location.reload()
+                    }}>Clear</button>
+                    <button className='border text-black px-4 py-3 text-white ml-3' onClick={''}>{localStorage.firstName}</button>
+
+
                 </nav>
                        <Routes>
                            <Route path="/" exact element={<Home/>} />

@@ -29,9 +29,9 @@ export function Register() {
             await axios.post('http://localhost:8080/api/register', data)
                 .then((res)=>{
                     console.log('res', res)
+                    navigate('/login')
                 })
                 .catch((e)=>setErrorMessage(e.response.data.error[0].message))
-            navigate('/login')
         } catch (err) {
             setErrorMessage(err.message)
         }

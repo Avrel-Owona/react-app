@@ -10,10 +10,13 @@ export const useAuth = () => {
     return useContext(authContext);
 };
 
+
 export function AuthContextProvider ({children}) {
     const [user, setUser] = useState(null)
     const [errorMessage, setErrorMessage] = useState()
     const [isLoading, setIsLoading] = useState(false)
+
+    console.log('response', localStorage)
 
     const navigate = useNavigate()
 
@@ -26,11 +29,15 @@ export function AuthContextProvider ({children}) {
             await axios.post('http://localhost:8080/api/login', data)
                 .then((res)=>{
                     console.log('res', res.data.user.token)
-                    setUser({
-                        user : res.data.user,
-                        loggedIn : true
-                    })
+                    // setUser({
+                    //     user : res.data.user,
+                    //     loggedIn : true
+                    // })
+                    setUser(res.data.user)
+                    console.log('current', res.data.user)
                     localStorage.setItem('token', res.data.user.token)
+                    localStorage.setItem('firstName', res.data.user.firstName)
+
                     navigate('/')
                     setIsLoading(false)
                 })
@@ -52,11 +59,14 @@ export function AuthContextProvider ({children}) {
         console.log('current', JSON.stringify(currentUser))
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         const checkSession = async () => {
-            const response = await axios.get("/api/auth/user");
-            setUser(response.data);
+            // await localStorage.getItem('token');
+            if (localStorage.token) {
+                // localStorage.user(setUser('sdfsdf'))
+            }
         };
+        return () => checkSession()
     },[])
 
 
