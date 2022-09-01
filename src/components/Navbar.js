@@ -19,6 +19,9 @@ const Navbar = () => {
             console.log(e)
         }
     }
+
+    const authPages: string[] = ["/login", "/register"];
+
     return(
             <div>
                 <nav className='w-full shadow-lg flex items-center justify-center h-20'>
