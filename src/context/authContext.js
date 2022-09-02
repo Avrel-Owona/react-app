@@ -16,7 +16,6 @@ export function AuthContextProvider ({children}) {
     const [errorMessage, setErrorMessage] = useState()
     const [isLoading, setIsLoading] = useState(false)
 
-    console.log('response', localStorage)
 
     const navigate = useNavigate()
 
@@ -28,7 +27,6 @@ export function AuthContextProvider ({children}) {
             setIsLoading(true)
             await axios.post('http://localhost:8080/api/login', data)
                 .then((res)=>{
-                    console.log('res', res.data.user.token)
                     // setUser({
                     //     user : res.data.user,
                     //     loggedIn : true
@@ -37,7 +35,6 @@ export function AuthContextProvider ({children}) {
                     for (const [key, value] of Object.entries(res.data.user)) {
                         localStorage.setItem(key, value)
                     }
-
                     navigate('/')
                     setIsLoading(false)
                 })
@@ -54,16 +51,12 @@ export function AuthContextProvider ({children}) {
     function logout () {
         return signOut(auth)
     }
-    function onAuthStateChanged(currentUser) {
-        localStorage.setUser(JSON.stringify(currentUser))
-        console.log('current', JSON.stringify(currentUser))
-    }
 
     useEffect(() => {
         const checkSession = async () => {
             // await localStorage.getItem('token');
             if (localStorage.token) {
-                // localStorage.user(setUser('sdfsdf'))
+                setUser(localStorage)
             }
         };
         return () => checkSession()

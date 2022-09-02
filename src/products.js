@@ -13,7 +13,6 @@ export function Products() {
             .catch((err) => {
                 console.log('err', err)
             })
-        console.log('response', response.data)
         setProducts(response.data)
     }
     useEffect(()=> {
