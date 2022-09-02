@@ -6,6 +6,7 @@ import {Register} from "../register";
 import {Products} from "../products";
 import {Home} from "../home";
 import {useAuth} from "../context/authContext";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 
 const Navbar = () => {
@@ -45,8 +46,8 @@ const Navbar = () => {
                 </nav>
                        <Routes>
                            <Route path="/" exact element={<Home/>} />
-                           <Route path="/products/" element={<Products/>} />
-                           {/*<Route path="/products/" element={<ProtectedRoutes><Products/></ProtectedRoutes>} />*/}
+                           {/*<Route path="/products/" element={<Products/>} />*/}
+                           <Route path="/products/" element={<ProtectedRoutes><Products/></ProtectedRoutes>} />
                            <Route path="/login/" element={<Login/>} />
                            <Route path="/register/" element={<Register/>} />
                            <Route path="/products/:id" exact element={<ProductDetails/>} />
