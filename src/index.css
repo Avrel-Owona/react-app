@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*========== TOASTER KEYFRAMES ============>*/
+.button-right {
+    animation: toaster-in-right .5s;
+}
+@keyframes toaster-in-right {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
