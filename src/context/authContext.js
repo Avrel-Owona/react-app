@@ -16,6 +16,34 @@ export function AuthContextProvider ({children}) {
     const [errorMessage, setErrorMessage] = useState()
     const [isLoading, setIsLoading] = useState(false)
 
+    // console.log('Toaster', list)
+    // let toasterProperties = null
+    // const showToaster = type => {
+    //     switch (type) {
+    //         case 'Success' :
+    //             toasterProperties = {
+    //                 id: list.length + 1,
+    //                 title: 'Success',
+    //                 description: 'This is success toaster',
+    //                 className: 'bg-green-400 text-white'
+    //             }
+    //             break
+    //         case 'Error' :
+    //             toasterProperties = {
+    //                 id: list.length + 1,
+    //                 title: 'Success',
+    //                 description: 'This is success toaster',
+    //                 className: 'bg-red-400 text-white'
+    //             }
+    //             break
+    //         default:
+    //             toasterProperties = []
+    //     }
+    //
+    //
+    //     setList([...list, toasterProperties])
+    // }
+
 
     const navigate = useNavigate()
 
