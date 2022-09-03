@@ -1,5 +1,6 @@
 import React from 'react';
 import {Navigate, Outlet} from "react-router-dom";
+import Header from "./Header";
 
 const ProtectedAuthRoutes = () => {
 
@@ -8,7 +9,11 @@ const ProtectedAuthRoutes = () => {
     }
     // Outlet nous permet rendre les elements de routes enfant,
     // Ça permets à l'interface imbriqué de s'afficher
-    return <Outlet/>;
+    return (
+        <>
+            <Outlet/>
+        </>
+    );
 };
 
 export default ProtectedAuthRoutes;

@@ -42,8 +42,6 @@ const Navbar = () => {
                         </ul>}
 
                     <button className='border text-black px-4 py-3 text-white ml-3'>{localStorage.firstName}</button>
-
-
                 </nav>
                        <Routes>
                            <Route path="/" exact element={<Home/>} />
