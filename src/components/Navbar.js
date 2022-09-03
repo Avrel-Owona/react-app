@@ -47,10 +47,12 @@ const Navbar = () => {
                        <Routes>
                            <Route path="/" exact element={<Home/>} />
                            {/*<Route path="/products/" element={<Products/>} />*/}
-                           <Route path="/products/" element={<ProtectedRoutes><Products/></ProtectedRoutes>} />
+                           <Route element={<ProtectedRoutes />}>
+                               <Route path="/products" exact element={<Products/>}/>
+                               <Route path="/products/:id" exact element={<ProductDetails/>}/>
+                           </Route>
                            <Route path="/login/" element={<Login/>} />
                            <Route path="/register/" element={<Register/>} />
-                           <Route path="/products/:id" exact element={<ProductDetails/>} />
                        </Routes>
             </div>
     );

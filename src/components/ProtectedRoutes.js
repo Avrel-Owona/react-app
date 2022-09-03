@@ -1,12 +1,12 @@
 import React from 'react';
-import {Navigate} from "react-router-dom";
+import {Navigate, Outlet} from "react-router-dom";
 
-const ProtectedRoutes = ({children}) => {
+const ProtectedRoutes = () => {
 
     if (!localStorage.firstName) {
-        return <Navigate to='/login/'/>
+        return <Navigate to='/login'/>
     }
-    return children;
+    return <Outlet/>;
 };
 
 export default ProtectedRoutes;
