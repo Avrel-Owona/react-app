@@ -6,6 +6,8 @@ const ProtectedRoutes = () => {
     if (!localStorage.firstName) {
         return <Navigate to='/login'/>
     }
+    // Outlet nous permet rendre les elements de routes enfant,
+    // Ça permets à l'interface imbriqué de s'afficher
     return <Outlet/>;
 };
 
